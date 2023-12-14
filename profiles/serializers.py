@@ -4,10 +4,17 @@ from .models import Profile, Post
 
 class ProfileSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
+    is_owner = serializers.SerializerMethodField()
+
+    def get_is_owner(self, obj):
+        request = self.context['request']
+        return obj.owner == request.user
 
     class Meta:
         model = Profile
-        fields = ['id', 'owner', 'name', 'content', 'image']
+        fields = ['id', 'owner', 'created_at', 'updated_at', 'name',
+                  'content', 'image', 'is_owner'
+                  ]
         # fields = '__all__'
 
 
