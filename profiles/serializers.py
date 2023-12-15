@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Profile, Post
+from .models import Profile
 
 
 class ProfileSerializer(serializers.ModelSerializer):
@@ -16,12 +16,3 @@ class ProfileSerializer(serializers.ModelSerializer):
                   'content', 'image', 'is_owner'
                   ]
         # fields = '__all__'
-
-
-class PostSerializer(serializers.ModelSerializer):
-    profile_name = serializers.ReadOnlyField(source='owner.profile.name')
-    profile_image = serializers.ReadOnlyField(source='owner.profile.image.url')
-
-    class Meta:
-        model = Post
-        fields = ['id', 'owner', 'title', 'content', 'image']
