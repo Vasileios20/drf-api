@@ -6,7 +6,8 @@ from .serializers import CommentSerializer, CommentDetailSerializer
 
 class CommentList(generics.ListCreateAPIView):
     """
-    Concrete view for listing a queryset(comments) or creating a model instance.
+    Concrete view for listing a queryset(comments)
+    or creating a model instance.
     """
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
