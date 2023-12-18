@@ -18,7 +18,7 @@ class FollowerList(generics.ListCreateAPIView):
 
 class FollowerDetail(generics.RetrieveDestroyAPIView):
     """
-    Retrieve, update or delete a follower instance
+    Retrieve or delete a follower instance
     """
     queryset = Follower.objects.all()
     serializer_class = FollowerSerializer
