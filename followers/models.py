@@ -9,10 +9,10 @@ class Follower(models.Model):
     followed = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='followed'
     )
-    created = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ['-created']
+        ordering = ['-created_at']
         unique_together = ['owner', 'followed']
 
     def __str__(self):
