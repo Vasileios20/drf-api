@@ -11,10 +11,6 @@ class FollowerSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     followed = serializers.ReadOnlyField(source='followed.username')
 
-    class Meta:
-        model = Follower
-        fields = ['id', 'owner', 'followed', 'created']
-
     def create(self, validated_data):
         try:
             return super().create(validated_data)
@@ -22,3 +18,7 @@ class FollowerSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError({
                 'detail: possible duplicate entry'
             })
+
+    class Meta:
+        model = Follower
+        fields = ['id', 'owner', 'followed', 'created']
