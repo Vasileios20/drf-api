@@ -1,4 +1,5 @@
-from rest_framework import generics, permissions
+from django.db.models import Count
+from rest_framework import generics, permissions, filters
 # from django.http import Http404
 # from rest_framework import status, permissions
 # from rest_framework.response import Response
@@ -81,11 +82,16 @@ class PostList(generics.ListCreateAPIView):
     List posts or create a post if logged in
     The perform_create method associates the post with the logged in user.
     """
-    queryset = Post.objects.all()
+    queryset = Post.objects.annotate(
+        likes_count=Count('likes', distinct=True),
+        comments_count=Count('comment', distinct=True)
+    ).order_by('-created_at')
     serializer_class = PostSerializer
     permission_classes = [
         permissions.IsAuthenticatedOrReadOnly
     ]
+    filter_backends = [filters.OrderingFilter]
+    ordering_fields = ['comments_count', 'likes_count', 'likes__created_at']
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
@@ -95,7 +101,10 @@ class PostDetail(generics.RetrieveUpdateDestroyAPIView):
     """
     Retrieve a post and edit or delete it if you own it.
     """
-    queryset = Post.objects.all()
+    queryset = Post.objects.annotate(
+        likes_count=Count('likes', distinct=True),
+        comments_count=Count('comment', distinct=True)
+    ).order_by('-created_at')
     serializer_class = PostSerializer
     permission_classes = [
         IsOwnerOrReadOnly
