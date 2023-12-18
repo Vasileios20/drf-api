@@ -2,8 +2,9 @@ asgiref==3.7.2
 certifi==2023.11.17
 charset-normalizer==3.3.2
 cloudinary==1.37.0
-Django==5.0
+Django==4.2.6
 django-cloudinary-storage==0.3.0
+django-filter==23.5
 djangorestframework==3.14.0
 idna==3.6
 Pillow==10.1.0

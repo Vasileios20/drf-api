@@ -1,5 +1,6 @@
 from django.db.models import Count
 from rest_framework import generics, filters
+from django_filters.rest_framework import DjangoFilterBackend
 # from django.http import Http404
 # from rest_framework import status
 # from rest_framework.views import APIView
@@ -67,7 +68,11 @@ class ProfileList(generics.ListCreateAPIView):
     ).order_by('-created_at')
     serializer_class = ProfileSerializer
     filter_backends = [
-        filters.OrderingFilter
+        filters.OrderingFilter,
+        DjangoFilterBackend,
+    ]
+    filterset_fields = [
+        'owner__following__followed__profile'
     ]
     ordering_fields = [
         'posts_count',
