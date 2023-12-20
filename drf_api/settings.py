@@ -115,7 +115,7 @@ if 'CLIENT_ORIGIN_DEV' in os.environ:
         r'^.+-', os.environ.get('CLIENT_ORIGIN_DEV', ''), re.IGNORECASE
     )
     CORS_ALLOWED_ORIGIN_REGEXES = [
-        rf"{extracted_url}(eu|us)\d+\w\.http://172.28.203.110$",
+        rf"{extracted_url}(eu|us)\d+\w\.http://localhost:3000/$",
     ]
 
 CORS_ALLOW_CREDENTIALS = True
