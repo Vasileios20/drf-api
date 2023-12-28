@@ -18,7 +18,7 @@ def root_route(request):
 @api_view(['POST'])
 def logout_route(request):
     response = Response()
-    response.set_coookie(
+    response.set_cookie(
         key=JWT_AUTH_COOKIE,
         value='',
         httponly=True,
@@ -27,7 +27,7 @@ def logout_route(request):
         samesite=JWT_AUTH_SAMESITE,
         secure=JWT_AUTH_SECURE,
     )
-    response.set_coookie(
+    response.set_cookie(
         key=JWT_AUTH_REFRESH_COOKIE,
         value='',
         httponly=True,
